@@ -26,6 +26,10 @@ def voice(phoneNo=g_arg1, content=g_arg2, note=g_arg3,err=g_err):
         strtofile(log_file,'nothing to say')
         exit()
 
+    if int(datetime.datetime.now().strftime('%H')) >= 23 and int(datetime.datetime.now().strftime('%H'))<=7:
+        strtofile(log_file, 'error found in sleep times')
+        exit()
+
     req.extend="12345"
     req.tts_code = "TTS_7730017"
     req.tts_param="{\"product\":\"%s\", \"code\":\"本次通知完毕,对您的打扰表示抱歉,祝愉快\"}" % (g_arg2.replace('.huivo.net','').replace('huivo.net',''))
