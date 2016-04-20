@@ -41,7 +41,8 @@ def voice(phoneNo=g_arg1, content=g_arg2, note=g_arg3,err=g_err):
         str += "\n\nret:%s" % resp
         print(resp)
     except Exception,e:
-        str += "\n\nerr:"+e.message
+        if hasattr(e,'message'): str += "\n\nerr:"+e.message.encode('utf-8')
+        if hasattr(e,'submsg'): str += "\nsubmsg:"+e.submsg.encode('utf-8')
         print(e)
     finally:
         strtofile(fname=log_file,content=str)
@@ -106,19 +107,7 @@ if __name__=='__main__':
         if case():
             print "unknow weekday"
             break
+
     # voice(phoneNo=g_arg1, content=g_arg2, note=g_arg3)
     voice(phoneNo=phone, content=g_arg2, note=g_arg3)
     exit()
-
-    '''
-    phoneList = {
-                    '13439930315':'秋林',
-                    '18618458391':'张胜',
-                    '13141163261':'吴志新',
-                    '13693567420':'武举光',
-                    '18601907819':'宁思平',
-                    '18601086705':'王恩东'
-                 }
-    for phone in phoneList:
-        voice(phone)
-    '''
